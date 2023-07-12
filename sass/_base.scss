@@ -1,0 +1,39 @@
+:root {
+	//Color Pallete
+	--bg-color: #05161e;
+	--text-color: #ffffff;
+}
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+a {
+	text-decoration: none;
+	color: var(--text-color);
+}
+
+ul {
+	list-style-type: none;
+	display: flex;
+}

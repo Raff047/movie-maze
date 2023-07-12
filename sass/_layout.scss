@@ -1,0 +1,48 @@
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.main-header .container {
+	margin-top: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+section {
+	margin: 4rem 0;
+}
+
+// Start movie details
+.movie-details__top {
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+
+.movie-details__bottom {
+	& .desc-wrapper {
+		display: flex;
+		flex-wrap: nowrap;
+	}
+
+	& .desc-wrapper .hype .stats-wrapper {
+		display: flex;
+		column-gap: 3rem;
+	}
+
+	.cast-wrapper {
+		display: flex;
+		width: fit-content;
+		column-gap: 1.2rem;
+	}
+
+	.actor {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		row-gap: 0.8rem;
+	}
+}
