@@ -18,35 +18,64 @@
 </head>
 
 <body>
-  <!-- Start Header -->
-  <header class="main-header">
-    <div class="container">
-      <div class="logo"><a href="/">MovieMaze</a></div>
-      <nav>
-        <ul>
-          <li>
-            <a class="nav-link" href="/">Movies</a>
-          </li>
-          <li>
-            <a class="nav-link" href="/tv-shows.html">TV Shows</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <!-- End Header -->
+
 
   <!-- Start NOW-PLAYING -->
   <section class="now-playing">
-    <h2>Now Playing</h2>
-    <div class="swiper">
-      <div class="swiper-wrapper"></div>
+    <!-- Start Header -->
+    <header class="main-header">
+      <div class="container">
+        <div class="logo"><a href="/">MovieMaze</a></div>
+        <nav>
+          <ul>
+            <li>
+              <a class="nav-link" href="/">Movies</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/tv-shows.html">TV Shows</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- End Header -->
+    <h2>🎥 Now Playing</h2>
+    <div class="swiper swiper-now-playing">
+      <div class="swiper-wrapper swiper-now-playing-wrapper"></div>
     </div>
   </section>
   <!-- End NOW-PLAYING -->
 
+  <!-- Start Coming this week -->
+  <section class="coming-this-week">
+    <div class="container">
+      <h2>🍿Coming this week</h2>
+      <div class="swiper swiper-coming-this-week">
+        <div class="swiper-wrapper swiper-coming-this-week-wrapper"></div>
+      </div>
+    </div>
+  </section>
+  <!-- End Coming this week -->
 
+  <!-- Start Popular -->
+  <section class="popular">
+    <div class="container">
+      <h2>🔥Popular movies</h2>
+      <div class="swiper swiper-popular">
+        <div class="swiper-wrapper swiper-popular-wrapper"></div>
+      </div>
+    </div>
+  </section>
+  <!-- End Popular -->
 
+  <!-- Start Footer -->
+  <Footer>
+    Made with🍿 &copy; by Raff 2023
+  </Footer>
+
+  <!-- End Footer -->
+
+  <div class="spinner"></div>
 
   <script type="module" src="src/main.js"></script>
 </body>
