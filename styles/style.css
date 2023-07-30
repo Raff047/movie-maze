@@ -34,7 +34,7 @@ input {
   background-color: rgba(81, 81, 83, 0.356);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.151);
   backdrop-filter: blur(2px);
-  background-image: url("public/search-icon.png");
+  background-image: url("search-icon.png");
   background-repeat: no-repeat;
   background-size: 1.8rem;
   background-position: 98% center;
@@ -85,21 +85,24 @@ ul {
   margin: 0 auto; }
 
 .main-header .container {
-  padding-top: 3rem;
+  margin: 0 auto;
+  padding: 2rem 0;
   display: flex;
   align-items: start;
   justify-content: space-between; }
   .main-header .container .search-form {
-    width: 25%; }
+    width: 35%; }
   @media (max-width: 600px) {
     .main-header .container {
       gap: 2rem;
       flex-direction: column;
       align-items: start; }
       .main-header .container .search-form {
-        padding-top: 3rem;
-        width: 75%;
-        align-self: center; } }
+        width: 100%;
+        align-self: center; }
+      .main-header .container form input {
+        margin-top: 2rem;
+        padding: 2.5rem 2rem; } }
 
 .now-playing h2 {
   margin-top: 6rem; }
