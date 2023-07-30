@@ -5,14 +5,132 @@ import 'swiper/css';
 
 const global = {
 	currentPage: window.location.pathname,
+	api: {
+		key: '61e02808a626232c79b0a3f0606bdefa',
+		url: 'https://api.themoviedb.org/3',
+	},
+	search: {
+		term: '',
+		page: 1,
+		totalPages: 1,
+		totalResults: 0,
+	},
 };
+
+// Search Data From API
+async function search() {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+
+	global.search.term = urlParams.get('search-term');
+
+	if (global.search.term !== '' && global.search.term !== null) {
+		const { results, total_pages, page, total_results } = await searchMovies();
+		global.search.totalResults = total_results;
+		global.search.page = page;
+		global.search.totalPages = total_pages;
+
+		if (results.length === 0) {
+			showAlert('No matching results found!', 'alert-error');
+			return;
+		}
+
+		showSearchResults(results);
+	} else {
+		showAlert('Please enter a movie title to search.', 'alert-error');
+	}
+}
+
+function showSearchResults(results) {
+	document.querySelector('.search-results').innerHTML = '';
+	document.querySelector('#pagination').innerHTML = '';
+	results.forEach((movie) => {
+		const div = document.createElement('div');
+		div.classList.add('card');
+
+		div.innerHTML = `
+			<a href="movie-details.html?id=${movie.id}">
+			${
+				movie.poster_path
+					? `<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />`
+					: `<img src="/no-image.jpg" alt="${movie.title}" />`
+			}
+		</a>
+		<h4 class="swiper-rating">
+		<i class="fa-solid fa-star" style="color: #d59a1a;"></i> ${movie.vote_average.toFixed(
+			1
+		)} / 10
+		</h4>
+		`;
+
+		document.getElementById('search_results_heading').innerHTML = `
+			<h2>${results.length} of ${global.search.totalResults} Results for "${global.search.term}"</h2>
+		`;
+
+		document.querySelector('.search-results').appendChild(div);
+	});
+	showPagination();
+}
+
+// show pagination
+function showPagination() {
+	const div = document.createElement('div');
+	div.classList.add('pagination');
+	div.innerHTML = `
+		<button id="prev" class="btn">Prev</button>
+		<button id="next" class="btn">Next</button>
+		<div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
+	`;
+	document.getElementById('pagination').appendChild(div);
+
+	// disable prev on first page
+	if (global.search.page === 1) {
+		document.getElementById('prev').disabled = true;
+	}
+	// disable next on last page
+	if (global.search.page === global.search.totalPages) {
+		document.getElementById('next').disabled = true;
+	}
+
+	// go to next page
+	document.getElementById('next').addEventListener('click', async () => {
+		global.search.page++;
+		const { results, total_pages } = await searchMovies();
+		showSearchResults(results);
+	});
+
+	// go to prev page
+	document.getElementById('prev').addEventListener('click', async () => {
+		global.search.page--;
+		const { results, total_pages } = await searchMovies();
+		showSearchResults(results);
+	});
+}
+
+// Search Data From API
+async function searchMovies() {
+	const API_KEY = global.api.key;
+	const API_URL = global.api.url;
+
+	showSpinner();
+
+	const response = await fetch(
+		`${API_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
+	);
+
+	const data = await response.json();
+
+	hideSpinner();
+
+	return data;
+}
 
 // Show NOW-PLaying on Slider
 async function showNowPlaying() {
 	const { results } = await fetchData('movie/now_playing');
 	results.forEach((movie) => {
 		const div = document.createElement('div');
-		div.classList.add('swiper-slide');
+		div.classList.add('swiper-slide', 'card');
 
 		div.innerHTML = `
           <a href="movie-details.html?id=${movie.id}">
@@ -35,13 +153,13 @@ async function showNowPlaying() {
 	});
 }
 
-// Show Coming this week
+// Show Coming up this week
 async function showComingThisWeek() {
 	const { results } = await fetchData('movie/upcoming');
 
 	results.forEach((movie) => {
 		const div = document.createElement('div');
-		div.classList.add('swiper-slide');
+		div.classList.add('swiper-slide', 'card');
 
 		div.innerHTML = `
 			<a href="movie-details.html?id=${movie.id}">
@@ -69,7 +187,7 @@ async function showPopular() {
 
 	results.forEach((movie) => {
 		const div = document.createElement('div');
-		div.classList.add('swiper-slide');
+		div.classList.add('swiper-slide', 'card');
 
 		div.innerHTML = `
 			<a href="movie-details.html?id=${movie.id}">
@@ -94,11 +212,10 @@ async function showPopular() {
 // Show Similar
 async function showSimilar(movieID) {
 	const { results } = await fetchData(`movie/${movieID}/similar`);
-	console.log(results);
 
 	results.forEach((movie) => {
 		const div = document.createElement('div');
-		div.classList.add('swiper-slide');
+		div.classList.add('swiper-slide', 'card');
 
 		div.innerHTML = `
 			<a href="movie-details.html?id=${movie.id}">
@@ -109,9 +226,9 @@ async function showSimilar(movieID) {
 			}
 		</a>
 		<h4 class="swiper-rating">
-		<i class="fa-solid fa-star" style="color: #d59a1a;"></i> ${
-			movie.vote_average
-		} / 10
+		<i class="fa-solid fa-star" style="color: #d59a1a;"></i> ${movie.vote_average.toFixed(
+			1
+		)} / 10
 		</h4>
 		`;
 
@@ -125,13 +242,14 @@ function initSwiper(targetEl) {
 	const swiper = new Swiper(targetEl, {
 		slidesPerView: 1,
 		spaceBetween: 25,
-		freeMode: true,
-		loop: false,
+		loop: true,
 		autoPlay: {
-			delay: 4000,
-			disableOnInteraction: false,
+			delay: 2000,
 		},
 		breakpoints: {
+			400: {
+				slidesPerView: 1,
+			},
 			500: {
 				slidesPerView: 2,
 			},
@@ -154,20 +272,6 @@ async function showMovieDetails() {
 	showBackDrop('movie', movie.backdrop_path);
 
 	const div = document.createElement('div');
-
-	const prodCompaniesHtml = movie.production_companies
-		.map(
-			(company) =>
-				`
-	<div class="prod">
-						<div class="prod-logo">
-							<img src="https://image.tmdb.org/t/p/w500${company.logo_path}" alt="${company.name}">
-						</div>
-					</div>
-
-`
-		)
-		.join(' ');
 
 	div.innerHTML = `
 	<div class="movie-details__top">
@@ -215,12 +319,7 @@ async function showMovieDetails() {
       <div class="cast-wrapper">
         ${showActors(movieID)}
       </div>
-			<div class="prod-companies">
-          <h2>Production companies</h2>
-          <div class="prod-wrapper">
-            ${prodCompaniesHtml}
-          </div>
-        </div>
+			
 	`;
 
 	document.getElementById('movie-details').appendChild(div);
@@ -275,8 +374,8 @@ function showBackDrop(type, backDropPath) {
 
 // Fetch Data From API
 async function fetchData(endpoint) {
-	const API_KEY = '61e02808a626232c79b0a3f0606bdefa';
-	const API_URL = 'https://api.themoviedb.org/3';
+	const API_KEY = global.api.key;
+	const API_URL = global.api.url;
 
 	showSpinner();
 
@@ -299,6 +398,17 @@ function activeLink() {
 			link.classList.add('active');
 		}
 	});
+}
+
+function showAlert(text, className) {
+	const div = document.createElement('div');
+	div.classList.add('alert', className);
+	div.appendChild(document.createTextNode(text));
+	document.querySelector('.alert').appendChild(div);
+
+	setTimeout(() => {
+		div.remove();
+	}, 2000);
 }
 
 // show/hide spinner
@@ -367,6 +477,10 @@ function init() {
 
 		case '/movie-details.html':
 			showMovieDetails();
+			break;
+
+		case '/search.html':
+			search();
 			break;
 
 		case '/tv-shows.html':

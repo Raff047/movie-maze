@@ -25,16 +25,11 @@
 <header class="main-header">
   <div class="container">
     <div class="logo"><a href="/">MovieMaze</a></div>
-    <nav>
-      <ul>
-        <li>
-          <a class="nav-link" href="/">Movies</a>
-        </li>
-        <li>
-          <a class="nav-link" href="/tv-shows.html">TV Shows</a>
-        </li>
-      </ul>
-    </nav>
+    <div class="search-form">
+      <form action="/search.html">
+        <input type="text" name="search-term" id="search" placeholder="Search for a movie">
+      </form>
+    </div>
   </div>
 </header>
 <!-- End Header -->
@@ -42,68 +37,7 @@
 <!-- Movie Details -->
 <section class="container">
   <!-- Movie Details Output -->
-  <div id="movie-details">
-
-    <!-- <div class="movie-details__top">
-      <h4>Actor name, actor name</h4>
-      <h1>Movie title</h1>
-      <ul class="genres">
-        <li>genre 1</li>
-        <li>genre 2</li>
-        <li>genre 3</li>
-      </ul>
-      <ul class="info">
-        <li>6.5</li>
-        <li>April 6, 2023</li>
-        <li>$130M</li>
-        <li>126 min</li>
-      </ul>
-    </div>
-    <div class="movie-details__bottom">
-      <div class="desc-wrapper">
-        <div>
-          <h2>description</h2>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti velit laboriosam doloremque eos, esse
-            amet
-            quas repellendus impedit! Fuga, dicta vel sunt ratione voluptatem cum quae inventore assumenda aliquam
-            excepturi
-            rerum voluptatibus molestias sed asperiores exercitationem itaque alias dolore ipsam officia repellat
-            dolores
-            facilis accusantium, rem qui? Quo, architecto, omnis repellat quae harum tenetur possimus fugit non,
-            voluptatibus ullam iusto nemo placeat.</p>
-        </div>
-        <div class="prod-companies">
-          <h2>Production companies</h2>
-          <div class="prod-wrapper">
-            <div class="prod">
-              <div class="prod-logo">
-                <img src="public/no-image.jpg" alt="">
-              </div>
-              <p>sony pictures</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2>notable cast</h2>
-      <div class="cast-wrapper">
-        <div class="actor">
-          <div class="avatar"></div>
-          actor name
-        </div>
-        <div class="actor">
-          <div class="avatar"></div>
-          actor name
-        </div>
-        <div class="actor">
-          <div class="avatar"></div>
-          actor name
-        </div>
-      </div>
-    </div> -->
-
-
-
-  </div>
+  <div id="movie-details"></div>
 </section>
 
 <!-- Start Similar movies -->

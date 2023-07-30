@@ -1,3 +1,34 @@
+// MEDIA QUERY MANAGER
+/*
+	0 - 600px:		phone
+	600 - 900px:	tablet portrait
+	900 - 1200px:	tablet landscape
+	1200 - 1800px: normal styles apply only
+	+1800px:	large desktop
+*/
+
+@mixin respond-phone {
+	@media (max-width: 600px) {
+		@content;
+	}
+}
+
+@mixin respond-tablet-portrait {
+	@media (max-width: 900px) {
+		@content;
+	}
+}
+@mixin respond-tablet-landscape {
+	@media (max-width: 1200px) {
+		@content;
+	}
+}
+@mixin respond-large-desktop {
+	@media (min-width: 1800px) {
+		@content;
+	}
+}
+
 :root {
 	//Color Pallete
 	--bg-color: #05161e;
@@ -22,6 +53,36 @@ h6 {
 	padding: 0;
 }
 
+input {
+	height: 3rem;
+	border: 0;
+	outline: 0;
+	padding: 0.6rem 1.2rem;
+	border-radius: 0.8rem;
+	background-color: rgba(81, 81, 83, 0.356);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.151);
+	backdrop-filter: blur(2px);
+	background-image: url('public/search-icon.png');
+	background-repeat: no-repeat;
+	background-size: 1.8rem;
+	background-position: 98% center;
+	caret-color: white;
+	width: 100%;
+
+	&::placeholder {
+		color: #ccc;
+		font-size: 1rem;
+	}
+
+	&:enabled {
+		color: white;
+	}
+}
+
+html {
+	font-size: 72.5%;
+}
+
 body {
 	font-family: 'Poppins', sans-serif;
 	background-color: var(--bg-color);
@@ -34,10 +95,25 @@ a {
 }
 
 ul {
-	list-style-type: none;
-	display: flex;
+	list-style: none;
 }
 
 .active {
 	color: aquamarine;
+}
+
+/* Custom Alert Box */
+.alert {
+	width: fit-content;
+	padding: 1rem 1.1rem;
+	margin-bottom: 1.2rem;
+	border-radius: 5px;
+}
+
+.alert-success {
+	background: green;
+}
+
+.alert-error {
+	background: rgba(255, 0, 0, 0.548);
 }

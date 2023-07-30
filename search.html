@@ -20,22 +20,29 @@
 <header class="main-header">
   <div class="container">
     <div class="logo"><a href="/">MovieMaze</a></div>
-    <nav>
-      <ul>
-        <li>
-          <a class="nav-link" href="/">Movies</a>
-        </li>
-        <li>
-          <a class="nav-link" href="/tv-shows.html">TV Shows</a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </header>
 <!-- End Header -->
 
 <body>
-  This is TV SHOWS PAGE
+  <div class="search-field">
+    <form action="/search.html">
+      <input type="text" name="search-term" id="search" placeholder="Search for a movie">
+    </form>
+  </div>
+
+
+  <!-- Start Search Results -->
+  <section class="search">
+    <div class="container">
+      <heading id="search_results_heading"></heading>
+      <div class="alert"></div>
+      <div class="search-results grid"></div>
+      <div id="pagination"></div>
+    </div>
+  </section>
+  <!-- End Search Results -->
+  <div class="spinner"></div>
   <script type="module" src="src/main.js"></script>
 </body>
 
