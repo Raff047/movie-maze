@@ -81,6 +81,10 @@ input {
 
 html {
 	font-size: 72.5%;
+
+	@include respond-phone {
+		font-size: 62.5%;
+	}
 }
 
 body {

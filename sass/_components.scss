@@ -194,6 +194,7 @@ section h2 {
 
 /* Movie Details page */
 #movie-details {
+	margin-top: 6rem;
 	h1 {
 		font-size: 2.4rem;
 	}
@@ -212,6 +213,7 @@ section h2 {
 		display: flex;
 		gap: 10px;
 		margin: 1rem 0;
+		flex-wrap: wrap;
 	}
 	.genres li {
 		padding: 0.3rem 0.8rem;
@@ -223,8 +225,8 @@ section h2 {
 	}
 
 	.info li {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(1fr));
+		position: relative;
+		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 18rem;
@@ -235,12 +237,20 @@ section h2 {
 		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.151);
 		font-family: 'Oswald', sans-serif;
 		font-size: 1.8rem;
+
+		@include respond-phone {
+			width: 14rem;
+			height: 6rem;
+			border-radius: 0.8rem;
+			font-size: 1.6rem;
+		}
 	}
 
 	.vertical-text {
+		left: 0;
 		position: absolute;
 		writing-mode: vertical-rl;
-		margin-left: 1rem;
+		margin: 1rem;
 		text-transform: uppercase;
 		letter-spacing: 0.1rem;
 		white-space: nowrap;

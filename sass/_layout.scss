@@ -1,5 +1,5 @@
 .container {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 }
 
@@ -54,14 +54,14 @@ section {
 		row-gap: 1rem;
 	}
 
-	.cast-wrapper,
-	.prod-wrapper {
+	.cast-wrapper {
 		display: flex;
 		width: fit-content;
 		column-gap: 1.2rem;
 	}
 
 	.actor {
+		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
